@@ -36,11 +36,11 @@ public class Game extends Canvas implements Runnable{ /**
 		defeat = new Defeat();
 		
 		victory = new Victory();
-		this.addMouseListener(menu);
+		this.addMouseListener(menu);*/
 		new Window(WIDTH, HEIGHT, "Plant vs Zombie mini v1.0.0.0e", this);
 				
 		
-		this.addMouseListener(defeat);
+		/*this.addMouseListener(defeat);
 		this.addMouseListener(victory);
 		this.addMouseListener(pause);
 		
