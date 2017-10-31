@@ -1,5 +1,5 @@
 package Script;
-//import GameObject.*;
+import GameObject.*;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -8,7 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-//import GUI.*;
+import GUI.*;
 
 public class Game extends Canvas implements Runnable{ /**
 	 * 
@@ -19,28 +19,28 @@ public class Game extends Canvas implements Runnable{ /**
 	private static final int WIDTH = 1200, HEIGHT = 750; 
 	private Thread thread;
 	private boolean running = false;
-	//public SpawnBot spawnbot;
-	//public PlayBoard playboard;
-	//public Menu menu;
-	//public Defeat defeat;
-	//public Victory victory;
-	//public Pause pause;
+	public SpawnBot spawnbot;
+	public PlayBoard playboard;
+	public Menu menu;
+	public Defeat defeat;
+	public Victory victory;
+	public Pause pause;
 	
 	public static BufferedImage sprite_Sheet;
 	
 	public Game(){
-		/*menu = new Menu();
+		menu = new Menu();
 		
 		pause = new Pause();
 		
 		defeat = new Defeat();
 		
 		victory = new Victory();
-		this.addMouseListener(menu);*/
+		this.addMouseListener(menu);
 		new Window(WIDTH, HEIGHT, "Plant vs Zombie mini v1.0.0.0e", this);
 				
 		
-		/*this.addMouseListener(defeat);
+		this.addMouseListener(defeat);
 		this.addMouseListener(victory);
 		this.addMouseListener(pause);
 		
@@ -51,7 +51,6 @@ public class Game extends Canvas implements Runnable{ /**
 		
 		spawnbot=new SpawnBot();
 		
-		*/
 	}
 	
 	public synchronized void start(){
@@ -100,7 +99,7 @@ public class Game extends Canvas implements Runnable{ /**
 	
 	private void tick(){
 		
-		/*if ( State.getGameState()==ID.Game){
+		if ( State.getGameState()==ID.Game){
 			Handler.tick();
 			PlantOption.tick();
 			SpawnBot.tick();
@@ -124,7 +123,6 @@ public class Game extends Canvas implements Runnable{ /**
 			victory.tick();
 			startTime=System.currentTimeMillis();
 		}
-		*/
 	}
 	
 	private void render(){
@@ -138,7 +136,7 @@ public class Game extends Canvas implements Runnable{ /**
 		
 		g.setColor(Color.black);
 		g.fillRect(0, 0 , WIDTH , HEIGHT);
-		/*if (State.getGameState()==ID.Game){
+		if (State.getGameState()==ID.Game){
 			Anou.render(g);
 			Player.render(g);
 			TreeRemover.render(g);
@@ -163,7 +161,7 @@ public class Game extends Canvas implements Runnable{ /**
 		}
 		if (State.getGameState()==ID.Pause){
 			pause.render(g);
-		}*/
+		}
 		g.dispose();
 		bs.show();
 	}
