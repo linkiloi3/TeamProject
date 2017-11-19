@@ -35,8 +35,11 @@ public class PlayBoard {
 				int x,y;
 				x=(7-i+1)*r+2*r*j;
 				y=i*r;
-				if ((x>=100)&&(x<=100+9*r)&&(y>=100)&&(y<=100+7*r))
-				g.drawRect(x,y, r , r);
+				if ((x>=100)&&(x<=100+9*r)&&(y>=100)&&(y<=100+7*r)){
+					g.drawRect(x,y, r , r);
+					g.setColor(Color.blue);
+					g.fillRect(x, y, r, r);
+				}
 			}
 		}
 		g.setColor(Color.white);
@@ -45,8 +48,11 @@ public class PlayBoard {
 				int x,y;
 				x=(7-i+1)*r+2*r*j-r;
 				y=i*r;
-				if ((x>=100)&&(x<=100+9*r)&&(y>=100)&&(y<=100+7*r))
+				if ((x>=100)&&(x<=100+9*r)&&(y>=100)&&(y<=100+7*r)){
 				g.drawRect(x,y, r , r);
+				g.setColor(Color.cyan);
+				g.fillRect(x, y, r, r);
+				}
 			}
 		}
 		

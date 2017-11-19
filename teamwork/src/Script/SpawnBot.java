@@ -3,7 +3,6 @@ import Zombie.BucketHead;
 import Zombie.ConeHead;
 import Zombie.Fastzombie;
 import Zombie.Normal;
-
 import java.awt.Graphics;
 import java.util.Random;
 

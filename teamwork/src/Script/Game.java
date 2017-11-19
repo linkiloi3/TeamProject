@@ -38,7 +38,10 @@ public class Game extends Canvas implements Runnable{ /**
 		victory = new Victory();
 		this.addMouseListener(menu);
 		new Window(WIDTH, HEIGHT, "Plant vs Zombie mini v1.0.0.0e", this);
-				
+		
+		BufferedImageLoader loader = new BufferedImageLoader();
+		
+		sprite_Sheet = loader.loadImage("/Untitled.png");
 		
 		this.addMouseListener(defeat);
 		this.addMouseListener(victory);
@@ -50,6 +53,7 @@ public class Game extends Canvas implements Runnable{ /**
 		this.addMouseListener(new MouseInput());
 		
 		spawnbot=new SpawnBot();
+		
 		
 	}
 	
@@ -103,26 +107,19 @@ public class Game extends Canvas implements Runnable{ /**
 			Handler.tick();
 			PlantOption.tick();
 			SpawnBot.tick();
-			if (System.currentTimeMillis()-startTime>1000*240){
-				while (Handler.object.size()>0){
-					Handler.object.remove(0);
-					Player.setSunCredit(50);
-				}
-				State.setGameState(ID.Victory);
-			}
+			Defeat.check();
+			Victory.check();
 		}
 		if ( State.getGameState()==ID.Menu){
-			menu.tick();
-			startTime=System.currentTimeMillis();
+			
 		}
 		if ( State.getGameState()==ID.Defeat){
-			defeat.tick();
-			startTime=System.currentTimeMillis();
+		
 		}
 		if ( State.getGameState()==ID.Victory){
-			victory.tick();
-			startTime=System.currentTimeMillis();
+			
 		}
+		
 	}
 	
 	private void render(){
@@ -140,11 +137,11 @@ public class Game extends Canvas implements Runnable{ /**
 			Anou.render(g);
 			Player.render(g);
 			TreeRemover.render(g);
-			Handler.render(g);
 			PlayBoard.render(g);
 			PlantOption.render(g);
+			Handler.render(g);
 			SpawnBot.render(g);
-			Pause.render(g);
+			pause.render(g);
 		}
 		
 

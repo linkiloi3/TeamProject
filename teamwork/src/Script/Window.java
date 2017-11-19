@@ -1,5 +1,5 @@
 package Script;
-
+import GameObject.*;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
