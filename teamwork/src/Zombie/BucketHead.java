@@ -1,19 +1,22 @@
 package Zombie;
-import GameObject.*;
+import Script.Game;
+import Script.SpriteSheet;
+import Script.Utility;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-public class BucketHead extends Enemy{
+import GUI.ObjType;
+
+public class BucketHead extends Enemy implements ZombieInterface{
+	private static int power=40;
 	public BucketHead(int x,int y){
-		super(x,y,25,1,15);
+		super(x,y,35,1,15);
 	}
 	public void render(Graphics g){
-		g.setColor(Color.gray);
-		g.fillRect(x, y, 30, 80);
-		if (this.health>5){
-			g.setColor(Color.white);
-			g.fillRect(x, y-10, 30, 10);
-		}
+		Utility.draw(ObjType.Buckethead, x, y, g);
+	}
+	@Override
+	public int getPower() {
+		return power;
 	}
 }
