@@ -29,32 +29,16 @@ public class PlayBoard {
 
 
 	public static void render(Graphics g){
-		g.setColor(Color.white);
-		for (int i=1;i<=6;i++){
-			for (int j=-2;j<=4;j++){
-				int x,y;
-				x=(7-i+1)*r+2*r*j;
-				y=i*r;
-				if ((x>=100)&&(x<=100+9*r)&&(y>=100)&&(y<=100+7*r)){
-					g.drawRect(x,y, r , r);
-					g.setColor(Color.blue);
-					g.fillRect(x, y, r, r);
+		for (int i=2;i<11;i++){
+			for (int j=2;j<7;j++){
+				if ((i+j)%2==0){
+					g.setColor(Color.cyan);
 				}
-			}
-		}
-		g.setColor(Color.white);
-		for (int i=1;i<=6;i++){
-			for (int j=-2;j<=4;j++){
-				int x,y;
-				x=(7-i+1)*r+2*r*j-r;
-				y=i*r;
-				if ((x>=100)&&(x<=100+9*r)&&(y>=100)&&(y<=100+7*r)){
-				g.drawRect(x,y, r , r);
-				g.setColor(Color.cyan);
+				else g.setColor(Color.blue);
+				int x=i*r;
+				int y=j*r;
 				g.fillRect(x, y, r, r);
-				}
 			}
 		}
-		
 	}
 }

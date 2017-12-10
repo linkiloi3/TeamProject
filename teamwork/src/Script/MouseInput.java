@@ -10,26 +10,25 @@ import GameObject.GameObject;
 import GameObject.Player;
 import GameObject.Sun;
 import GameObject.TreeRemover;
-import Plant.Peashooter;
-import Plant.Sunflower;
-import Plant.Wallnut;
-import Plant.WinterPea;
+import GameObject.Utility;
+import Plant.*;
+
 
 public class MouseInput extends MouseAdapter{
 	
-	private int pId;
+	private Plant plant;
+	private int objID;
+	private PlantFactory createPlant = new PlantFactory();
 	private final int numOfPlant=4;
-	private final long starttime=System.currentTimeMillis();
-	private long time[]={starttime,starttime,starttime,starttime};
-	private long cd[]={1500,2000,5000,2500};
+	private Utility utility=Utility.getInstance();
 	public MouseInput (){
 	}
 	
 	private void collectSun(int x,int y){
 		for (int i=0;i<Handler.object.size();i++){
 			GameObject temp=Handler.object.get(i);
-			if ((temp instanceof Sun)&&(temp.getX()<=x)&&(temp.getY()<=y)
-					&& (temp.getX()+30>=x) && (temp.getY()+30>=y)) {
+			if ((temp instanceof Sun) && 
+					utility.mouseOver(x,y,temp.getX(), temp.getY(), 30, 30)) {
 				// sun collect
 				Handler.removeObject(temp);
 				Player.incSunCredit(50);
@@ -43,68 +42,36 @@ public class MouseInput extends MouseAdapter{
 		if (State.getGameState()==ID.Game){
 		int x=e.getX();
 		int y=e.getY();
-		if ((10<x)&&(y>10)&&(y<60)
-				&&(x<numOfPlant*50+10)&&(pId==0))
-			if (System.currentTimeMillis()-time[(x-10)/50]>cd[(x-10)/50]) {
+		if (utility.mouseOver(x, y,10,10, numOfPlant*50, 50) && (objID==0)){
+			objID=((x-10)/50+1);
+			plant=createPlant.newPlant(objID, 0, 0);
 			
-				pId=((x-10)/50+1);
-		
+		} else
+		if (TreeRemover.onTreeRemover(x, y)){
+			objID=100;
+		}else
+		if ((x>100) && (x<=1000) && (y>100) && (y<625)){
+			if (objID==0) {
+				this.collectSun(x,y);
 			}
-			else Anou.setAnou("plant is on cooldown");
-		else
-			if (TreeRemover.onTreeRemover(x, y)){
-				pId=100;
-			}
-			else{
-			if ((x>100) && (x<=1000) && (y>100) && (y<625)){
-				if (pId==0) {
-					this.collectSun(x,y);
-				}
-				
-				if ((pId==1)&&(PlayBoard.getPlanted(x,y)==false))
-				if (Player.redSunCredit(100)){
-					Handler.addObject(new Peashooter(x,y));
-					Peashooter.incObjNum();
-					time[0]=System.currentTimeMillis();
+			if (plant!=null) 
+				if(PlayBoard.getPlanted(x, y)==false) {
+					plant.placePlant(x, y);
 				}
 				else {
-					Anou.setAnou("not enough sun credit");
+					Anou.setAnou("already planted there");
 				}
-				
-				if ((pId==2)&&(PlayBoard.getPlanted(x,y)==false))
-				if (Player.redSunCredit(50)){
-					Handler.addObject(new Sunflower(x,y));
-					Sunflower.incObjNum();
-					time[1]=System.currentTimeMillis();
-				}
-				else {
-					Anou.setAnou("not enough sun credit");
-				}
-				
-				if ((pId==3)&&(PlayBoard.getPlanted(x,y)==false))
-				if (Player.redSunCredit(50)){
-					Handler.addObject(new Wallnut(x,y));
-					Wallnut.incObjNum();
-					time[2]=System.currentTimeMillis();
-				}
-				else {
-					Anou.setAnou("not enough sun credit");
-				}
-				if ((pId==4)&&(PlayBoard.getPlanted(x,y)==false))
-					if (Player.redSunCredit(175)){
-						Handler.addObject(new WinterPea(x,y));
-						WinterPea.incObjNum();
-						time[3]=System.currentTimeMillis();
-					}
-					else {
-						Anou.setAnou("not enough sun credit");
-					}
-				if (pId==100) TreeRemover.removeTree(x, y);
-			}
-			pId=0;
+			plant=null;	
+			if (objID==100) TreeRemover.removeTree(x, y);
+			objID=0;
+		}
+		else if (objID!=0){
+			Anou.setAnou("action can't be done there");
+			plant=null;
+			objID=0;
+		}
 		}
 	}
 	
 
-}
 }

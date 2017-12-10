@@ -14,8 +14,6 @@ public class Game extends Canvas implements Runnable{ /**
 	 * 
 	 */
 	private static final long serialVersionUID = -6568339445379875062L;
-	
-	private long startTime;
 	private static final int WIDTH = 1200, HEIGHT = 750; 
 	private Thread thread;
 	private boolean running = false;
@@ -29,6 +27,8 @@ public class Game extends Canvas implements Runnable{ /**
 	public static BufferedImage sprite_Sheet;
 	
 	public Game(){
+		BufferedImageLoader loader = new BufferedImageLoader();
+		sprite_Sheet = loader.loadImage("/Untitled.png");
 		menu = new Menu();
 		
 		pause = new Pause();
@@ -39,9 +39,7 @@ public class Game extends Canvas implements Runnable{ /**
 		this.addMouseListener(menu);
 		new Window(WIDTH, HEIGHT, "Plant vs Zombie mini v1.0.0.0e", this);
 		
-		BufferedImageLoader loader = new BufferedImageLoader();
 		
-		sprite_Sheet = loader.loadImage("/Untitled.png");
 		
 		this.addMouseListener(defeat);
 		this.addMouseListener(victory);
@@ -79,7 +77,6 @@ public class Game extends Canvas implements Runnable{ /**
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		int frames = 0;
 		while ( running ){
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -90,12 +87,9 @@ public class Game extends Canvas implements Runnable{ /**
 			}
 			if (running)
 				render();
-			frames++;
 			
 			if (System.currentTimeMillis() - timer > 1000 ){
 				timer += 1000;
-				//System.out.println("FPS: " + frames );
-				frames = 0 ;
 			}
 		}
 		stop();
@@ -140,7 +134,6 @@ public class Game extends Canvas implements Runnable{ /**
 			PlayBoard.render(g);
 			PlantOption.render(g);
 			Handler.render(g);
-			SpawnBot.render(g);
 			pause.render(g);
 		}
 		
@@ -150,11 +143,9 @@ public class Game extends Canvas implements Runnable{ /**
 		}
 		if ( State.getGameState()==ID.Defeat){
 			defeat.render(g);
-			spawnbot.setPower(0);
 		}
 		if ( State.getGameState()==ID.Victory){
 			victory.render(g);
-			spawnbot.setPower(0);
 		}
 		if (State.getGameState()==ID.Pause){
 			pause.render(g);

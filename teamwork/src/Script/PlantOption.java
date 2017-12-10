@@ -1,5 +1,4 @@
 package Script;
-import GameObject.*;
 import Plant.Peashooter;
 import Plant.Sunflower;
 import Plant.Wallnut;
@@ -12,7 +11,7 @@ import java.awt.Graphics;
 
 public class PlantOption{
 	
-	private static int l[]={50,50,50,50};
+	private static int l[]={0,0,0,0};
 	private static int cd50[]={30,40,100,50};
 	private static int oldp[]={0,0,0,0};
 	private static final int numOfPlant=4;
