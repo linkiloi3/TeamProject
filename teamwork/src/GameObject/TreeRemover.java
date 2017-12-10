@@ -1,4 +1,4 @@
-package GameObject;
+ackage GameObject;
 
 import Plant.Plant;
 import Script.Handler;
