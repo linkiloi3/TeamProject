@@ -9,38 +9,36 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-public class Victory extends MouseAdapter{
-	
-	
+public class Victory extends MouseAdapter implements screenImp{
+	private static long startTime;
+	private Utility utility = Utility.getInstance();
+	public static long getStartTime() {
+		return startTime;
+	}
+	public static void setStartTime(long startTime) {
+		Victory.startTime = startTime;
+	}
+	public static void check(){
+		if (System.currentTimeMillis()-startTime>1000*240){
+			while (Handler.object.size()>0){
+				Handler.object.remove(0);
+				Player.setSunCredit(50);
+			}
+			State.setGameState(ID.Victory);
+		}
+	}
 	public void mousePressed(MouseEvent e){
 		int mx=e.getX();
 		int my=e.getY();
-		if (mouseOver(mx,my,450,300,200,64) && State.getGameState()==ID.Victory){
+		if (utility.mouseOver(mx,my,450,300,200,64) && State.getGameState()==ID.Victory){
 			while (Handler.object.size()>0){
 				Handler.object.remove(0);
 				Player.setSunCredit(50);
 			}
 			State.setGameState(ID.Game);
-			Anou.setAnou("Can you survive for 2 minutes");
+			Victory.setStartTime(System.currentTimeMillis());
+			Anou.setAnou("Can you survive for 4 minutes");
 		}
-	}
-	
-	public void mouseRelease(MouseEvent e){
-		
-	}
-	
-	public void tick(){
-
-	}
-	
-	private boolean mouseOver(int mx,int my,int x, int y, int width , int height){
-		if (mx>x && mx < x + width){
-			if (my > y && my< y + height){
-				return true;
-			}
-			else return false;
-		}
-		else return false;
 	}
 	
 	public void render(Graphics g){
