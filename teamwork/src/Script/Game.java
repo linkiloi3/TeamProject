@@ -25,10 +25,13 @@ public class Game extends Canvas implements Runnable{ /**
 	public Pause pause;
 	
 	public static BufferedImage sprite_Sheet;
+	public static BufferedImage screen_load;
+	
 	
 	public Game(){
 		BufferedImageLoader loader = new BufferedImageLoader();
 		sprite_Sheet = loader.loadImage("/Untitled.png");
+		screen_load = loader.loadImage("/Background.jpg");
 		menu = new Menu();
 		
 		pause = new Pause();
@@ -124,9 +127,11 @@ public class Game extends Canvas implements Runnable{ /**
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		
-		g.setColor(Color.black);
-		g.fillRect(0, 0 , WIDTH , HEIGHT);
+		SpriteSheet ss = new SpriteSheet(screen_load);
+		BufferedImage image = ss.grabImage(0, 0, WIDTH, HEIGHT);;
+		g.drawImage(image, 0, 0, null);
+//		g.setColor(Color.black);
+//		g.fillRect(0, 0 , WIDTH , HEIGHT);
 		if (State.getGameState()==ID.Game){
 			Anou.render(g);
 			Player.render(g);
