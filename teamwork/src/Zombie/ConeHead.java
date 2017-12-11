@@ -1,19 +1,24 @@
 package Zombie;
-import GameObject.*;
+import Script.Game;
+import Script.SpriteSheet;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-public class ConeHead extends Enemy{
+import GUI.ObjType;
+import GameObject.Utility;
+
+public class ConeHead extends Enemy implements ZombieInterface{
+	private static int power=30;
+	private Utility utility=Utility.getInstance();
 	public ConeHead(int x,int y){
 		super(x,y,15,1,15);
 	}
 	public void render(Graphics g){
-		g.setColor(Color.gray);
-		g.fillRect(x, y, 30, 80);
-		if (this.health>5){
-			g.setColor(Color.red);
-			g.fillRect(x, y-10, 30, 10);
-		}
+		utility.draw(ObjType.Conehead, x, y, g);
+	}
+	@Override
+	public int getPower() {
+	// TODO Auto-generated method stub
+		return power;
 	}
 }
