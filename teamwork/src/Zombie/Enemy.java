@@ -1,11 +1,12 @@
 package Zombie;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import GUI.ID;
 import GUI.State;
-import GameObject.GameObject;
-import GameObject.Player;
+import GameObject.*;
+import GameObject.Object;
 import Plant.Plant;
 import Script.Handler;
 
@@ -16,7 +17,8 @@ public class Enemy extends GameObject{
 	private long lastatt=System.currentTimeMillis();
 	private long delay=20;
 	private long duration=0;
-	
+	private Utility utility=Utility.getInstance();
+	protected BufferedImage zombie_image;
 	
 	
 	public long getDuration() {
@@ -42,15 +44,6 @@ public class Enemy extends GameObject{
 	public void setStep(int step) {
 		this.step = step;
 	}
-
-	public int getPower() {
-		return power;
-	}
-
-	public void setPower(int power) {
-		this.power = power;
-	}
-
 	public Enemy(int x , int y ,int health,int step,int power){
 		super(x,y,health);
 		// where zombie spawns and health
@@ -61,13 +54,7 @@ public class Enemy extends GameObject{
 	public void eat(){
 		for (int i=0; i<Handler.object.size() ; i++){
 			GameObject tempObject = Handler.object.get(i);
-			int x=tempObject.getX();
-			int y=tempObject.getY();
-			if ((tempObject instanceof Plant)
-				&& (x > this.x-tempObject.getW()-30)
-				&& (x < this.x)
-				&& (y > this.y-20) 
-				&& (y < this.y+50)
+			if (utility.checkNearby(Object.Plant, tempObject, this.x, this.y)
 				&& (System.currentTimeMillis()-lastatt)>500){
 			
 				if (tempObject.getHealth()>0) 
@@ -79,11 +66,7 @@ public class Enemy extends GameObject{
 				if (tempObject.getHealth()<=0){
 					for (int j=0; j<Handler.object.size() ; j++){
 						GameObject temp=Handler.object.get(j);
-						if ((temp instanceof Enemy)
-							&& (temp.getX()<=this.x+3)
-							&& (temp.getX()>=this.x)
-							&& (temp.getY()>this.y-20) 
-							&& (temp.getY()<this.y+50)
+						if (utility.checkNearby(Object.Zombie, temp, this.x, this.y)
 						
 						){
 							Enemy enemy=(Enemy)temp;
@@ -95,7 +78,7 @@ public class Enemy extends GameObject{
 		}
 		for (int i=0; i<Handler.object.size() ; i++){
 			GameObject tempObject = Handler.object.get(i);
-			if ((tempObject instanceof Plant)&&(tempObject.getHealth()<0)){
+			if ((tempObject instanceof Plant)&&(tempObject.getHealth()<=0)){
 				Handler.removeObject(tempObject);
 			}
 		}
@@ -113,10 +96,6 @@ public class Enemy extends GameObject{
 		//collision();
 		if (health<=0) Handler.object.remove(this);
 		eat();
-		if (this.getX()<180){
-			Handler.removeObject(this);
-			State.setGameState(ID.Defeat);
-		}
 	}
 	
 	public void render(Graphics g){
