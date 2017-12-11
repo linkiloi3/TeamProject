@@ -26,12 +26,18 @@ public class Game extends Canvas implements Runnable{ /**
 	
 	public static BufferedImage sprite_Sheet;
 	public static BufferedImage screen_load;
+	public static BufferedImage pause_button;
+	public static BufferedImage resume_button;
+	public static BufferedImage retry_button;
 	
 	
 	public Game(){
 		BufferedImageLoader loader = new BufferedImageLoader();
-		sprite_Sheet = loader.loadImage("/Untitled.png");
+		sprite_Sheet = loader.loadImage("/GameCharacter.jpg");
 		screen_load = loader.loadImage("/Background.jpg");
+		pause_button = loader.loadImage("/Pause.jpg");
+		resume_button = loader.loadImage("/Resume.jpg");
+		retry_button = loader.loadImage("/Retry.jpg");
 		menu = new Menu();
 		
 		pause = new Pause();

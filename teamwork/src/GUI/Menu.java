@@ -14,7 +14,7 @@ public class Menu extends MouseAdapter implements screenImp{
 	public void mousePressed(MouseEvent e){
 		int mx=e.getX();
 		int my=e.getY();
-		if (utility.mouseOver(mx,my,450,300,200,64) && State.getGameState()==ID.Menu){
+		if (utility.mouseOver(mx,my,400,300,300,100) && State.getGameState()==ID.Menu){
 			Anou.setAnou("Can you survive for 4 minutes");
 			Victory.setStartTime(System.currentTimeMillis());
 			State.setGameState(ID.Game);

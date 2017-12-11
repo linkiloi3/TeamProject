@@ -39,11 +39,11 @@ public class Defeat extends MouseAdapter implements screenImp{
 		}
 	}
 	public void render(Graphics g){
-		utility.draw(ObjType.RetryButton, 480-15, 300, g);
 		Font fnt = new Font("arial",1,50);
 		g.setFont(fnt);
 		g.setColor(Color.white);
 		g.drawString("Defeat", 500, 50);
+		utility.draw(ObjType.RetryButton, 480, 330, g);
 //		
 //		g.setFont(fnt);
 //		g.setColor(Color.white);

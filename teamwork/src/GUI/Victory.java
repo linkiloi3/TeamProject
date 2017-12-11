@@ -46,13 +46,8 @@ public class Victory extends MouseAdapter implements screenImp{
 		Font fnt = new Font("arial",1,50);
 		g.setFont(fnt);
 		g.setColor(Color.white);
-		g.drawString("Victory", 500, 50);
+		g.drawString("Victory", 480, 50);
 		
-		g.setFont(fnt);
-		g.setColor(Color.white);
-		g.drawString("Retry", 525, 350);
-		
-		g.setColor(Color.white);
-		g.drawRect(480, 300, 200, 64);
+		utility.draw(ObjType.RetryButton, 480, 330, g);
 	}
 }

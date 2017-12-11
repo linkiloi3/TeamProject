@@ -27,8 +27,8 @@ public class Pause extends MouseAdapter implements screenImp{
 			Font fnt = new Font("arial",1,50);
 			g.setFont(fnt);
 			g.setColor(Color.white);
-			g.drawString("Pause", 450, 50);
-			utility.draw(ObjType.ResumeButton, 450-15,300, g);
+			g.drawString("Pause", 480, 50);
+			utility.draw(ObjType.ResumeButton, 480,330, g);
 		}
 		if (State.getGameState()==ID.Game){
 			utility.draw(ObjType.PauseButton, 1000, 10, g);
